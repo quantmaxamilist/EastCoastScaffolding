@@ -1,20 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageShell from '../components/PageShell.astro';
+import PageHeader from '../components/PageHeader.astro';
 import { contacts, site, townLine } from '../data/site';
 ---
 
 <Layout title="Contact | East Coast Scaffolding Ltd" description="Request a scaffolding quote in Norfolk or Suffolk. Call Jenny Evans on 01502 716005 or Alex Winser on 07917 448624.">
   <PageShell>
-    <section class="section-padding bg-ink pt-28 text-white">
-      <div class="container-narrow">
-        <p class="eyebrow mb-3 text-tag-amber" data-reveal>Contact</p>
-        <h1 class="mb-4 font-display text-4xl font-extrabold text-white md:text-5xl" data-reveal>Send the job through</h1>
-        <p class="max-w-2xl text-lg text-white/75" data-reveal>
-          Address, access, how long you need it up. We’ll come back with a quote. Or call the office — someone will pick up.
-        </p>
-      </div>
-    </section>
+    <PageHeader
+      eyebrow="Contact"
+      title="Send the job through"
+      lede="Address, access, how long you need it up. We’ll come back with a quote. Or call the office — someone will pick up."
+    />
 
     <section class="section-padding">
       <div class="container-narrow grid gap-10 lg:grid-cols-2">
@@ -71,7 +68,7 @@ import { contacts, site, townLine } from '../data/site';
             </dl>
           </div>
           <div class="border border-hairline bg-panel p-6">
-            <h2 class="mb-3 font-display text-sm tracking-widest text-moss">Towns we cover</h2>
+            <h2 class="mb-3 font-display text-sm tracking-widest text-rust">Towns we cover</h2>
             <p class="text-sm leading-relaxed text-muted">{townLine}</p>
             <div class="mt-4 flex gap-4 text-sm">
               <a href={site.facebookUrl} target="_blank" rel="noopener noreferrer" class="text-rust hover:underline">Facebook</a>

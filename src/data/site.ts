@@ -78,4 +78,25 @@ export const credentials = [
   'Health & safety policy reviewed annually',
 ] as const;
 
+export const accreditations = [
+  {
+    name: 'CISRS',
+    alt: 'CISRS — Construction Industry Scaffolders Record Scheme',
+    src: '/accreditations/cisrs.svg',
+    href: 'https://www.cisrs.org.uk/',
+  },
+  {
+    name: 'CHAS',
+    alt: 'CHAS Accredited Contractor',
+    src: '/accreditations/chas.svg',
+    href: 'https://www.chas.co.uk/',
+  },
+  {
+    name: 'CITB',
+    alt: 'CITB — Construction Industry Training Board',
+    src: '/accreditations/citb.svg',
+    href: 'https://www.citb.co.uk/',
+  },
+] as const;
+
 export const ogImage = '/best.jpg';

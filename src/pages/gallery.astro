@@ -1,21 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageShell from '../components/PageShell.astro';
+import PageHeader from '../components/PageHeader.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { galleryCategories, galleryItems } from '../data/gallery';
 ---
 
 <Layout title="Past Projects | East Coast Scaffolding Ltd" description="Scaffolding on residential roofs, commercial new-builds and church restorations across Norfolk and Suffolk.">
   <PageShell>
-    <section class="section-padding bg-ink pt-28 text-white">
-      <div class="container-narrow">
-        <p class="eyebrow mb-3 text-tag-amber" data-reveal>Past projects</p>
-        <h1 class="mb-4 font-display text-4xl font-extrabold text-white md:text-5xl" data-reveal>The work on the ground</h1>
-        <p class="max-w-2xl text-lg text-white/75" data-reveal>
-          Domestic roofing access, commercial envelopes, and church towers. Filter by type, open any shot.
-        </p>
-      </div>
-    </section>
+    <PageHeader
+      eyebrow="Past projects"
+      title="The work on the ground"
+      lede="Domestic roofing access, commercial envelopes, and church towers. Filter by type, open any shot."
+    />
 
     <section class="section-padding">
       <div class="container-narrow">

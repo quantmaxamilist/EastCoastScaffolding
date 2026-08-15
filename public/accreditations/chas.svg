@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-labelledby="chasTitle">
+  <title id="chasTitle">CHAS Accredited Contractor</title>
+  <circle cx="100" cy="100" r="96" fill="#16325c"/>
+  <circle cx="100" cy="100" r="88" fill="none" stroke="#c9a227" stroke-width="3"/>
+  <circle cx="100" cy="100" r="80" fill="none" stroke="#c9a227" stroke-width="0.75" opacity="0.7"/>
+  <text x="100" y="92" text-anchor="middle" fill="#ffffff" font-family="system-ui, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="34" font-weight="800" letter-spacing="2">CHAS</text>
+  <rect x="52" y="104" width="96" height="1.5" fill="#c9a227"/>
+  <text x="100" y="126" text-anchor="middle" fill="#c9a227" font-family="system-ui, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="8" font-weight="700" letter-spacing="1.6">ACCREDITED CONTRACTOR</text>
+</svg>

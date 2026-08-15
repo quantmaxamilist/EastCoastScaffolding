@@ -6,6 +6,7 @@
   --color-galvanised: #eceee9;
   --color-rust: #c2531f;
   --color-moss: #5c7a57;
+  --color-logo-green: #67ad68;
   --color-tag-amber: #e8b33d;
   --color-muted: #5c6762;
   --color-panel: #f6f7f4;
@@ -54,7 +55,7 @@
 
 @layer components {
   .eyebrow {
-    @apply font-mono text-[0.7rem] font-medium uppercase tracking-[0.22em] text-moss;
+    @apply font-mono text-[0.7rem] font-medium uppercase tracking-[0.22em] text-rust;
   }
 
   .btn-primary {

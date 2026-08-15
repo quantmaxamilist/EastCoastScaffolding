@@ -1,0 +1,49 @@
+---
+import { accreditations } from '../data/site';
+
+interface Props {
+  variant?: 'strip' | 'inline';
+}
+
+const { variant = 'strip' } = Astro.props;
+const isStrip = variant === 'strip';
+---
+
+{
+  isStrip ? (
+    <section class="border-t border-hairline bg-galvanised" aria-label="Accreditations">
+      <div class="container-narrow flex flex-col items-center gap-6 px-5 py-10 md:flex-row md:justify-between md:gap-10 md:px-8 lg:px-12">
+        <p class="eyebrow text-center md:text-left">Accredited contractor</p>
+        <ul class="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+          {accreditations.map((mark) => (
+            <li>
+              <a
+                href={mark.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="block rounded-[2px] transition-opacity hover:opacity-80"
+              >
+                <img src={mark.src} alt={mark.alt} width="88" height="88" class="h-16 w-16 md:h-[4.5rem] md:w-[4.5rem]" />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  ) : (
+    <ul class="flex flex-wrap items-center gap-5 sm:gap-6">
+      {accreditations.map((mark) => (
+        <li>
+          <a
+            href={mark.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block rounded-[2px] transition-opacity hover:opacity-80"
+          >
+            <img src={mark.src} alt={mark.alt} width="72" height="72" class="h-14 w-14" />
+          </a>
+        </li>
+      ))}
+    </ul>
+  )
+}
