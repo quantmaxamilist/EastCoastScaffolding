@@ -1,0 +1,122 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageShell from '../components/PageShell.astro';
+import { contacts, site, townLine } from '../data/site';
+---
+
+<Layout title="Contact | East Coast Scaffolding Ltd" description="Request a scaffolding quote in Norfolk or Suffolk. Call Jenny Evans on 01502 716005 or Alex Winser on 07917 448624.">
+  <PageShell>
+    <section class="section-padding bg-ink pt-28 text-white">
+      <div class="container-narrow">
+        <p class="eyebrow mb-3 text-tag-amber" data-reveal>Contact</p>
+        <h1 class="mb-4 font-display text-4xl font-extrabold text-white md:text-5xl" data-reveal>Send the job through</h1>
+        <p class="max-w-2xl text-lg text-white/75" data-reveal>
+          Address, access, how long you need it up. We’ll come back with a quote. Or call the office — someone will pick up.
+        </p>
+      </div>
+    </section>
+
+    <section class="section-padding">
+      <div class="container-narrow grid gap-10 lg:grid-cols-2">
+        <form id="contact-form" class="border border-hairline bg-panel p-6 md:p-8" data-reveal>
+          <div id="form-status" class="mb-4 hidden p-4 text-sm" role="status"></div>
+          <div class="mb-5">
+            <label for="name" class="mb-2 block text-sm font-semibold">Name</label>
+            <input type="text" id="name" name="name" required autocomplete="name" class="w-full rounded-[2px] border border-hairline bg-galvanised px-4 py-3 text-ink focus:border-rust" />
+          </div>
+          <div class="mb-5">
+            <label for="email" class="mb-2 block text-sm font-semibold">Email</label>
+            <input type="email" id="email" name="email" required autocomplete="email" class="w-full rounded-[2px] border border-hairline bg-galvanised px-4 py-3 text-ink focus:border-rust" />
+          </div>
+          <div class="mb-5">
+            <label for="phone" class="mb-2 block text-sm font-semibold">Phone</label>
+            <input type="tel" id="phone" name="phone" required autocomplete="tel" class="w-full rounded-[2px] border border-hairline bg-galvanised px-4 py-3 text-ink focus:border-rust" />
+          </div>
+          <div class="mb-5">
+            <label for="message" class="mb-2 block text-sm font-semibold">Message</label>
+            <textarea id="message" name="message" rows="5" required class="w-full resize-y rounded-[2px] border border-hairline bg-galvanised px-4 py-3 text-ink focus:border-rust"></textarea>
+          </div>
+          <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" />
+          <button type="submit" class="btn-primary">Send enquiry</button>
+        </form>
+
+        <div class="space-y-6" data-reveal>
+          <div class="border border-hairline bg-steel p-8 text-white">
+            <h2 class="mb-6 font-display text-lg font-extrabold text-tag-amber">Direct lines</h2>
+            <dl class="space-y-5">
+              {
+                contacts.map((c) => (
+                  <div>
+                    <dt class="font-mono text-[0.65rem] uppercase tracking-widest text-white/50">{c.name} · {c.role}</dt>
+                    <dd>
+                      <a href={c.phoneHref} class="text-xl font-semibold hover:text-tag-amber">{c.phone}</a>
+                    </dd>
+                  </div>
+                ))
+              }
+              <div>
+                <dt class="font-mono text-[0.65rem] uppercase tracking-widest text-white/50">Email</dt>
+                <dd>
+                  <a href={site.emailHref} class="hover:text-tag-amber">{site.email}</a>
+                </dd>
+              </div>
+              <div>
+                <dt class="font-mono text-[0.65rem] uppercase tracking-widest text-white/50">Yard</dt>
+                <dd class="text-white/85">
+                  {site.addressLines.map((line) => (
+                    <span class="block">{line}</span>
+                  ))}
+                </dd>
+              </div>
+            </dl>
+          </div>
+          <div class="border border-hairline bg-panel p-6">
+            <h2 class="mb-3 font-display text-sm tracking-widest text-moss">Towns we cover</h2>
+            <p class="text-sm leading-relaxed text-muted">{townLine}</p>
+            <div class="mt-4 flex gap-4 text-sm">
+              <a href={site.facebookUrl} target="_blank" rel="noopener noreferrer" class="text-rust hover:underline">Facebook</a>
+              <a href={site.instagramUrl} target="_blank" rel="noopener noreferrer" class="text-rust hover:underline">Instagram</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </PageShell>
+</Layout>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const status = document.getElementById('form-status');
+  const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!status) return;
+
+    if (!accessKey) {
+      status.className = 'mb-4 border border-hairline bg-galvanised p-4 text-sm text-muted';
+      status.textContent = 'Contact form not configured yet. Call 01502 716005 or email office@eastcoastscaffolding.co.uk.';
+      status.classList.remove('hidden');
+      return;
+    }
+
+    const formData = new FormData(form);
+    formData.append('access_key', accessKey);
+    formData.append('subject', 'New enquiry — East Coast Scaffolding Ltd');
+
+    status.className = 'mb-4 bg-galvanised p-4 text-sm text-ink';
+    status.textContent = 'Sending…';
+    status.classList.remove('hidden');
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
+      const data = (await res.json()) as { success?: boolean };
+      if (data.success) {
+        status.textContent = 'Thank you — your message has been sent.';
+        form.reset();
+      } else throw new Error('Failed');
+    } catch {
+      status.textContent = 'Something went wrong. Please call 01502 716005.';
+    }
+  });
+</script>

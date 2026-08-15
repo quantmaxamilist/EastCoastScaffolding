@@ -1,0 +1,133 @@
+---
+interface Props {
+  tagNumber?: string;
+  status: string;
+  header?: string;
+  date?: string;
+  inspector?: string;
+  variant?: 'moss' | 'rust' | 'amber';
+  size?: 'default' | 'hero';
+  stamp?: boolean;
+  class?: string;
+}
+
+const {
+  tagNumber,
+  status,
+  header = 'Scaffold tag',
+  date,
+  inspector = 'ECS',
+  variant = 'moss',
+  size = 'default',
+  stamp = false,
+  class: className = '',
+} = Astro.props;
+
+const headerClass =
+  variant === 'rust' ? 'bg-rust text-white' : variant === 'amber' ? 'bg-tag-amber text-ink' : 'bg-moss text-white';
+---
+
+<article
+  class:list={['inspection-tag h-fit self-start text-ink', size === 'hero' && 'inspection-tag--hero', className]}
+  data-stamp={stamp ? '' : undefined}
+  aria-label={tagNumber ? `Scaffold inspection tag ${tagNumber}: ${status}` : `Scaffold inspection tag: ${status}`}
+>
+  <span class="inspection-tag__grommet" aria-hidden="true"></span>
+  <header class:list={['inspection-tag__head', headerClass]}>
+    <span class="inspection-tag__label font-mono text-[0.6rem] font-medium uppercase leading-snug tracking-[0.16em]">
+      {header}
+    </span>
+  </header>
+  <div class="inspection-tag__body">
+    <p
+      class:list={[
+        'inspection-tag__status font-display font-extrabold uppercase tracking-wide text-ink',
+        size === 'hero' ? 'text-[0.82rem] leading-normal' : 'text-[0.7rem] leading-snug',
+      ]}
+    >
+      {status}
+    </p>
+    <dl class="inspection-tag__meta mt-2 grid grid-cols-[auto_minmax(0,1fr)] gap-x-2 gap-y-1 font-mono text-[0.62rem] uppercase tracking-wider text-muted">
+      {
+        tagNumber && (
+          <>
+            <dt>No.</dt>
+            <dd class="text-ink">{tagNumber}</dd>
+          </>
+        )
+      }
+      {
+        date && (
+          <>
+            <dt>Date</dt>
+            <dd class="text-ink">{date}</dd>
+          </>
+        )
+      }
+      <dt>By</dt>
+      <dd class="text-ink">{inspector}</dd>
+    </dl>
+  </div>
+</article>
+
+<style>
+  .inspection-tag {
+    position: relative;
+    width: 9.5rem;
+    height: fit-content;
+    align-self: start;
+    color: #1b2320;
+    background: #f4f1e8;
+    border: 1px solid rgba(27, 35, 32, 0.35);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35);
+    transform: rotate(-2deg);
+  }
+  .inspection-tag--hero {
+    width: 12.25rem;
+  }
+  .inspection-tag__grommet {
+    position: absolute;
+    top: 0.45rem;
+    left: 50%;
+    width: 0.7rem;
+    height: 0.7rem;
+    border: 2px solid #1b2320;
+    border-radius: 999px;
+    background: #eceee9;
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+  .inspection-tag__head {
+    padding: 1.15rem 0.55rem 0.4rem;
+    text-align: center;
+  }
+  .inspection-tag__label {
+    display: block;
+    overflow-wrap: anywhere;
+  }
+  .inspection-tag__body {
+    padding: 0.65rem 0.7rem 0.8rem;
+  }
+  .inspection-tag__status {
+    margin: 0;
+    overflow-wrap: break-word;
+  }
+  .inspection-tag__meta {
+    margin-top: 0.5rem;
+  }
+  .inspection-tag__meta dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+  [data-stamp] {
+    opacity: 1;
+  }
+  .js-ready [data-stamp]:not(.is-stamped) {
+    opacity: 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .js-ready [data-stamp]:not(.is-stamped) {
+      opacity: 1;
+    }
+  }
+</style>

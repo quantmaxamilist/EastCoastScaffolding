@@ -1,0 +1,71 @@
+---
+import '../styles/global.css';
+import { ogImage, site } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title = `${site.name} | Scaffolding contractors, Beccles`,
+  description = site.description,
+  ogImage: pageOg = ogImage,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const schemaLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HomeAndConstructionBusiness',
+  name: site.name,
+  description: site.description,
+  url: site.url,
+  telephone: site.phone,
+  email: site.email,
+  image: new URL(ogImage, site.url).href,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Office 3, Unit 9B, Ellough Industrial Estate, Ellough',
+    addressLocality: 'Beccles',
+    addressRegion: 'Suffolk',
+    postalCode: 'NR34 7TD',
+    addressCountry: 'GB',
+  },
+  areaServed: ['Norfolk', 'Suffolk', 'Essex'],
+  sameAs: [site.facebookUrl, site.instagramUrl],
+};
+---
+
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#1B2320" />
+    <link rel="canonical" href={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={new URL(pageOg, Astro.site)} />
+    <meta property="og:locale" content="en_GB" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,700;125,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <script type="application/ld+json" set:html={JSON.stringify(schemaLd)} />
+  </head>
+  <body>
+    <slot />
+    <script src="../scripts/animations.ts"></script>
+  </body>
+</html>

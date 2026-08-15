@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageShell from '../components/PageShell.astro';
+import { site } from '../data/site';
+---
+
+<Layout title="Privacy Policy | East Coast Scaffolding Ltd" description="How East Coast Scaffolding Ltd handles enquiry data submitted through this website.">
+  <PageShell>
+    <section class="section-padding pt-28">
+      <div class="container-narrow max-w-3xl">
+        <p class="eyebrow mb-3">Legal</p>
+        <h1 class="mb-8 font-display text-4xl font-extrabold">Privacy Policy</h1>
+        <div class="space-y-5 text-sm leading-relaxed text-muted">
+          <p>
+            East Coast Scaffolding Ltd (“we”) uses this site to show our work and take enquiries. We do not sell personal data.
+          </p>
+          <p>
+            If you submit the contact form, we receive the name, email, phone number and message you typed, via Web3Forms, so we can quote or reply. We keep that correspondence as long as needed to complete the job and meet our legal obligations, then delete it.
+          </p>
+          <p>
+            If you telephone or email us instead, the same principle applies: we use your details to respond and to carry out the work.
+          </p>
+          <p>
+            This site may set a small number of technically necessary cookies required to operate. We do not run advertising trackers.
+          </p>
+          <p>
+            To ask what we hold, or to request deletion, email <a href={site.emailHref} class="text-ink underline">{site.email}</a> or write to {site.address}.
+          </p>
+        </div>
+      </div>
+    </section>
+  </PageShell>
+</Layout>

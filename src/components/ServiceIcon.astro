@@ -1,0 +1,120 @@
+---
+import type { ServiceIconId } from '../data/services';
+
+interface Props {
+  name: ServiceIconId;
+  class?: string;
+}
+
+const { name, class: className = 'h-10 w-10' } = Astro.props;
+---
+
+<svg class={className} viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+  {
+    name === 'traditional' && (
+      <>
+        <path d="M10 44 V8 M24 44 V8 M38 44 V8" />
+        <path d="M10 16 H38 M10 26 H38 M10 36 H38" />
+        <path d="M10 8 H38" />
+        <rect x="10" y="26" width="14" height="3.2" fill="currentColor" stroke="none" opacity="0.35" />
+        <rect x="24" y="16" width="14" height="3.2" fill="currentColor" stroke="none" opacity="0.35" />
+      </>
+    )
+  }
+  {
+    name === 'guard-rails' && (
+      <>
+        <path d="M8 42 V14 M40 42 V14" />
+        <path d="M8 18 H40 M8 26 H40" />
+        <path d="M8 42 H40" />
+        <circle cx="8" cy="18" r="1.6" fill="currentColor" stroke="none" />
+        <circle cx="40" cy="18" r="1.6" fill="currentColor" stroke="none" />
+      </>
+    )
+  }
+  {
+    name === 'edge-protection' && (
+      <>
+        <path d="M8 40 V12 H40 V40" />
+        <path d="M8 18 H40" />
+        <path d="M14 18 V40 M20 18 V40 M26 18 V40 M32 18 V40" />
+        <path d="M8 40 H40" />
+      </>
+    )
+  }
+  {
+    name === 'chutes' && (
+      <>
+        <path d="M16 8 H32 V14 L20 28 V40" />
+        <path d="M32 14 L22 28" />
+        <path d="M16 40 H28" />
+        <path d="M22 34 h8 l4 6" />
+      </>
+    )
+  }
+  {
+    name === 'hoists' && (
+      <>
+        <path d="M10 42 H38" />
+        <path d="M14 42 V12 H34 V18" />
+        <path d="M24 12 V28" />
+        <rect x="18" y="28" width="12" height="8" />
+        <path d="M24 28 v-4" />
+        <circle cx="24" cy="12" r="2.2" />
+      </>
+    )
+  }
+  {
+    name === 'sheeting' && (
+      <>
+        <path d="M10 8 V40 M38 8 V40" />
+        <path d="M10 12 C16 18 20 8 24 14 C28 20 32 10 38 16" />
+        <path d="M10 22 C16 28 20 18 24 24 C28 30 32 20 38 26" />
+        <path d="M10 32 C16 38 20 28 24 34 C28 40 32 30 38 36" />
+      </>
+    )
+  }
+  {
+    name === 'loading-bays' && (
+      <>
+        <path d="M8 40 H40" />
+        <path d="M12 40 V22 H28 V40" />
+        <path d="M28 28 H40 V40" />
+        <path d="M16 22 V16 H24 V22" />
+        <path d="M32 28 l6 -6 M38 22 v6 h-6" />
+      </>
+    )
+  }
+  {
+    name === 'temporary-roofs' && (
+      <>
+        <path d="M8 22 L24 8 L40 22" />
+        <path d="M12 22 V40 H36 V22" />
+        <path d="M12 22 H36" />
+        <path d="M24 8 V22" />
+        <path d="M16 40 V28 H20" />
+      </>
+    )
+  }
+  {
+    name === 'ewi-access' && (
+      <>
+        <path d="M32 8 V40 H40 V8 Z" />
+        <path d="M32 16 H8 V40 H32" />
+        <path d="M8 24 H32 M8 32 H32" />
+        <path d="M14 16 V40 M22 16 V40" />
+        <path d="M34 14 h4 M34 22 h4 M34 30 h4" />
+      </>
+    )
+  }
+  {
+    name === 'design' && (
+      <>
+        <path d="M10 38 V10 H38 V38 Z" />
+        <path d="M10 16 H38" />
+        <path d="M16 16 V38 M24 22 H32 V32 H24 Z" />
+        <path d="M14 10 V6 M34 10 V6 M10 12 H6 M38 12 H42" />
+      </>
+    )
+  }
+</svg>

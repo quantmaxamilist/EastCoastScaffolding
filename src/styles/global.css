@@ -1,0 +1,106 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-ink: #1b2320;
+  --color-steel: #2e3a36;
+  --color-galvanised: #eceee9;
+  --color-rust: #c2531f;
+  --color-moss: #5c7a57;
+  --color-tag-amber: #e8b33d;
+  --color-muted: #5c6762;
+  --color-panel: #f6f7f4;
+  --color-hairline: rgba(27, 35, 32, 0.12);
+  --color-white: #ffffff;
+
+  --font-display: 'Archivo', system-ui, sans-serif;
+  --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    @apply bg-galvanised font-body text-ink antialiased;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--color-rust);
+    outline-offset: 2px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display font-bold uppercase tracking-wide text-ink;
+    font-stretch: 125%;
+    font-variation-settings: 'wdth' 125;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply font-mono text-[0.7rem] font-medium uppercase tracking-[0.22em] text-moss;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-[2px] bg-rust px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#a84618] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rust;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center rounded-[2px] border border-ink/20 bg-transparent px-6 py-3 text-sm font-semibold text-ink transition-colors hover:border-rust hover:text-rust focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rust;
+  }
+
+  .btn-ghost-light {
+    @apply inline-flex items-center justify-center rounded-[2px] border border-white/35 bg-transparent px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-tag-amber hover:text-tag-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tag-amber;
+  }
+
+  .section-padding {
+    @apply px-5 py-16 md:px-8 md:py-24 lg:px-12;
+  }
+
+  .container-narrow {
+    @apply mx-auto max-w-6xl;
+  }
+}
+
+[data-reveal] {
+  opacity: 1;
+  transform: none;
+}
+
+.js-ready [data-reveal]:not(.is-revealed) {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  .js-ready [data-reveal]:not(.is-revealed) {
+    opacity: 1;
+    transform: none;
+  }
+
+  img {
+    transition: none;
+  }
+}
+
+::selection {
+  background: #c2531f;
+  color: #eceee9;
+}

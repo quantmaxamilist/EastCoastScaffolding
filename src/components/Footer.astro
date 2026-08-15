@@ -1,0 +1,66 @@
+---
+import { contacts, navLinks, site, towns } from '../data/site';
+---
+
+<footer class="border-t border-white/10 bg-ink text-white">
+  <div class="section-padding container-narrow">
+    <div class="mb-12 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+      <div>
+        <img src="/logo.png" alt={site.name} width="168" height="60" class="h-12 w-auto" />
+        <p class="mt-4 max-w-xs text-sm leading-relaxed text-white/70">{site.description}</p>
+        <svg class="mt-6 w-full max-w-[180px] text-moss" viewBox="0 0 180 70" fill="none" aria-hidden="true">
+          <title>East Anglia coastline</title>
+          <path
+            d="M18 12 L18 58 L42 58 C48 50 52 42 62 40 C78 36 86 48 102 46 C118 44 122 28 138 26 C150 24 158 32 168 30"
+            stroke="currentColor"
+            stroke-width="1.4"
+            stroke-linejoin="round"
+          />
+          <circle cx="42" cy="52" r="2.2" fill="currentColor" />
+        </svg>
+        <p class="mt-1 font-mono text-[0.65rem] uppercase tracking-[0.18em] text-white/40">East Anglia · Beccles</p>
+      </div>
+      <div>
+        <h2 class="mb-3 font-display text-sm tracking-widest text-tag-amber">Site</h2>
+        <ul class="space-y-2 text-sm text-white/70">
+          {navLinks.map((l) => (
+            <li><a href={l.href} class="hover:text-tag-amber">{l.label}</a></li>
+          ))}
+          <li><a href="/privacy-policy" class="hover:text-tag-amber">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="mb-3 font-display text-sm tracking-widest text-tag-amber">Office</h2>
+        <address class="text-sm not-italic leading-relaxed text-white/70">
+          {site.addressLines.map((line) => (
+            <span class="block">{line}</span>
+          ))}
+        </address>
+        <ul class="mt-4 space-y-2 text-sm">
+          {contacts.map((c) => (
+            <li>
+              <span class="block font-mono text-[0.65rem] uppercase tracking-widest text-white/40">{c.name}</span>
+              <a href={c.phoneHref} class="text-white hover:text-tag-amber">{c.phone}</a>
+            </li>
+          ))}
+          <li>
+            <a href={site.emailHref} class="text-white/80 hover:text-tag-amber">{site.email}</a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="mb-3 font-display text-sm tracking-widest text-tag-amber">Coverage</h2>
+        <p class="text-sm leading-relaxed text-white/70">{towns.join(' · ')}</p>
+        <p class="mt-2 text-sm text-white/50">Suffolk · Norfolk · Essex</p>
+        <div class="mt-6 flex gap-4 text-sm">
+          <a href={site.facebookUrl} target="_blank" rel="noopener noreferrer" class="text-white/70 hover:text-tag-amber">Facebook</a>
+          <a href={site.instagramUrl} target="_blank" rel="noopener noreferrer" class="text-white/70 hover:text-tag-amber">Instagram</a>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col items-start justify-between gap-3 border-t border-white/10 pt-8 font-mono text-[0.7rem] uppercase tracking-widest text-white/40 md:flex-row md:items-center">
+      <p>&copy; {new Date().getFullYear()} {site.name}</p>
+      <p>CISRS · CITB · Fully insured</p>
+    </div>
+  </div>
+</footer>

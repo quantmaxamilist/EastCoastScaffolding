@@ -1,0 +1,17 @@
+---
+import { site } from '../data/site';
+---
+
+<section class="bg-ink section-padding text-white">
+  <div class="container-narrow flex flex-col items-start justify-between gap-8 md:flex-row md:items-center" data-reveal>
+    <div>
+      <p class="eyebrow mb-3 text-tag-amber">Next step</p>
+      <h2 class="mb-3 font-display text-3xl font-extrabold text-white md:text-4xl">Tell us the building.<br />We’ll price the scaffold.</h2>
+      <p class="max-w-xl text-white/70">Beccles office, crews across Norfolk and Suffolk. Call Jenny or send the job through — we’ll come back with a clear quote.</p>
+    </div>
+    <div class="flex flex-col gap-3 sm:flex-row">
+      <a href="/contact" class="btn-primary">{site.ctaPrimary}</a>
+      <a href={site.phoneHref} class="btn-ghost-light">{site.ctaSecondary}</a>
+    </div>
+  </div>
+</section>

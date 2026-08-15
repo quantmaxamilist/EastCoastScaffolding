@@ -1,0 +1,134 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageShell from '../components/PageShell.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { galleryCategories, galleryItems } from '../data/gallery';
+---
+
+<Layout title="Past Projects | East Coast Scaffolding Ltd" description="Scaffolding on residential roofs, commercial new-builds and church restorations across Norfolk and Suffolk.">
+  <PageShell>
+    <section class="section-padding bg-ink pt-28 text-white">
+      <div class="container-narrow">
+        <p class="eyebrow mb-3 text-tag-amber" data-reveal>Past projects</p>
+        <h1 class="mb-4 font-display text-4xl font-extrabold text-white md:text-5xl" data-reveal>The work on the ground</h1>
+        <p class="max-w-2xl text-lg text-white/75" data-reveal>
+          Domestic roofing access, commercial envelopes, and church towers. Filter by type, open any shot.
+        </p>
+      </div>
+    </section>
+
+    <section class="section-padding">
+      <div class="container-narrow">
+        <div class="mb-8 flex flex-wrap gap-2" role="tablist" aria-label="Project categories" data-reveal>
+          {
+            galleryCategories.map((cat, i) => (
+              <button
+                type="button"
+                class="gallery-filter border border-hairline px-4 py-2 font-mono text-[0.7rem] uppercase tracking-wider aria-selected:border-rust aria-selected:bg-rust aria-selected:text-white"
+                data-filter={cat.id}
+                aria-selected={i === 0 ? 'true' : 'false'}
+              >
+                {cat.label}
+              </button>
+            ))
+          }
+        </div>
+
+        <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3" id="gallery-grid">
+          {
+            galleryItems.map((item, i) => (
+              <li data-category={item.category}>
+                <button
+                  type="button"
+                  class="gallery-item group relative block w-full overflow-hidden bg-steel text-left"
+                  data-index={i}
+                  aria-label={`Open ${item.project}: ${item.alt}`}
+                >
+                  <img src={item.src} alt={item.alt} class="aspect-[4/3] h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" loading={i < 6 ? 'eager' : 'lazy'} />
+                  <span class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/85 to-transparent p-4">
+                    <span class="block font-mono text-[0.65rem] uppercase tracking-widest text-tag-amber">{item.category === 'heritage' ? 'Church & heritage' : item.category === 'commercial' ? 'Commercial & new-build' : 'Residential'}</span>
+                    <span class="font-display text-sm font-extrabold uppercase text-white">{item.project}</span>
+                  </span>
+                </button>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <CtaBand />
+  </PageShell>
+</Layout>
+
+<dialog id="lightbox" class="max-h-[100dvh] max-w-[100vw] border-0 bg-ink/95 p-0 text-white backdrop:bg-ink/80">
+  <div class="relative flex min-h-[100dvh] min-w-[100vw] flex-col items-center justify-center px-4 py-16">
+    <button type="button" id="lightbox-close" class="absolute right-4 top-4 z-10 min-h-11 min-w-11 border border-white/30 font-mono text-xs uppercase tracking-widest hover:border-tag-amber" aria-label="Close">Close</button>
+    <button type="button" id="lightbox-prev" class="absolute left-4 top-1/2 z-10 min-h-11 min-w-11 -translate-y-1/2 border border-white/30 font-mono text-xs hover:border-tag-amber" aria-label="Previous photo">Prev</button>
+    <button type="button" id="lightbox-next" class="absolute right-4 top-1/2 z-10 min-h-11 min-w-11 -translate-y-1/2 border border-white/30 font-mono text-xs hover:border-tag-amber" aria-label="Next photo">Next</button>
+    <img id="lightbox-image" src="" alt="" class="max-h-[78dvh] w-auto max-w-[90vw] object-contain" />
+    <p id="lightbox-caption" class="mt-4 max-w-2xl text-center font-mono text-xs uppercase tracking-widest text-white/70"></p>
+  </div>
+</dialog>
+
+<script>
+  import { galleryItems } from '../data/gallery';
+
+  const filters = document.querySelectorAll<HTMLButtonElement>('.gallery-filter');
+  const items = document.querySelectorAll<HTMLElement>('#gallery-grid li');
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.gallery-item');
+  const dialog = document.getElementById('lightbox') as HTMLDialogElement | null;
+  const img = document.getElementById('lightbox-image') as HTMLImageElement | null;
+  const caption = document.getElementById('lightbox-caption');
+  let current = 0;
+  let visibleIndexes: number[] = galleryItems.map((_, i) => i);
+
+  const applyFilter = (id: string): void => {
+    visibleIndexes = [];
+    items.forEach((li, i) => {
+      const show = id === 'all' || li.dataset.category === id;
+      li.hidden = !show;
+      if (show) visibleIndexes.push(i);
+    });
+  };
+
+  filters.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      filters.forEach((b) => b.setAttribute('aria-selected', String(b === btn)));
+      applyFilter(btn.dataset.filter ?? 'all');
+    });
+  });
+
+  const openAt = (index: number): void => {
+    if (!dialog || !img || !caption) return;
+    current = index;
+    const item = galleryItems[index];
+    img.src = item.src;
+    img.alt = item.alt;
+    caption.textContent = `${item.project} — ${item.alt}`;
+    if (!dialog.open) dialog.showModal();
+  };
+
+  const step = (dir: number): void => {
+    if (!visibleIndexes.length) return;
+    const pos = visibleIndexes.indexOf(current);
+    const nextPos = (pos + dir + visibleIndexes.length) % visibleIndexes.length;
+    openAt(visibleIndexes[nextPos]);
+  };
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => openAt(Number(btn.dataset.index)));
+  });
+
+  document.getElementById('lightbox-close')?.addEventListener('click', () => dialog?.close());
+  document.getElementById('lightbox-prev')?.addEventListener('click', () => step(-1));
+  document.getElementById('lightbox-next')?.addEventListener('click', () => step(1));
+  dialog?.addEventListener('click', (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (!dialog?.open) return;
+    if (e.key === 'ArrowLeft') step(-1);
+    if (e.key === 'ArrowRight') step(1);
+  });
+</script>
