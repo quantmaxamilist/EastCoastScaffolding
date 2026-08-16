@@ -6,7 +6,15 @@ import { contacts, navLinks, site, towns } from '../data/site';
   <div class="section-padding container-narrow">
     <div class="mb-12 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
       <div>
-        <img src="/logo.png" alt={site.name} width="168" height="60" class="h-12 w-auto" />
+        <span class="inline-block bg-logo-green p-0.5">
+          <img
+            src="/logo.png"
+            alt={site.name}
+            width="284"
+            height="130"
+            class="block h-12 w-auto object-contain"
+          />
+        </span>
         <p class="mt-4 max-w-xs text-sm leading-relaxed text-white/70">{site.description}</p>
         <svg class="mt-6 w-full max-w-[180px] text-moss" viewBox="0 0 180 70" fill="none" aria-hidden="true">
           <title>East Anglia coastline</title>
