@@ -9,7 +9,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
   class="sticky top-0 z-50 bg-logo-green text-ink transition-shadow [&.scrolled]:shadow-md"
 >
   <div class="container-narrow flex items-center justify-between gap-4 px-5 md:px-8 lg:px-12">
-    <a href="/" class="block shrink-0" aria-label={`${site.name} — Home`}>
+    <a href="/" class="block shrink-0 lg:-ml-3" aria-label={`${site.name} — Home`}>
       <img
         src="/logo.png"
         alt=""
@@ -20,40 +20,42 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
       <span class="sr-only">{site.name}</span>
     </a>
 
-    <nav class="hidden items-center gap-7 lg:flex" aria-label="Main navigation">
-      {
-        navLinks.map((link) => {
-          const active = currentPath === link.href;
-          return (
-            <a
-              href={link.href}
-              class:list={['min-h-10 text-sm font-medium text-ink/85 transition-colors hover:text-ink', active && 'font-semibold text-ink']}
-              aria-current={active ? 'page' : undefined}
-            >
-              {link.label}
-            </a>
-          );
-        })
-      }
-    </nav>
+    <div class="flex items-center gap-6 lg:gap-9">
+      <nav class="hidden items-center gap-7 lg:flex" aria-label="Main navigation">
+        {
+          navLinks.map((link) => {
+            const active = currentPath === link.href;
+            return (
+              <a
+                href={link.href}
+                class:list={['min-h-10 text-sm font-medium text-ink/85 transition-colors hover:text-ink', active && 'font-semibold text-ink']}
+                aria-current={active ? 'page' : undefined}
+              >
+                {link.label}
+              </a>
+            );
+          })
+        }
+      </nav>
 
-    <div class="flex items-center gap-3">
-      <a href={site.phoneHref} class="hidden font-mono text-xs tracking-wide text-ink/80 hover:text-ink md:inline">
-        {site.phone}
-      </a>
-      <a href="/contact" class="btn-primary hidden text-sm sm:inline-flex">{site.ctaPrimary}</a>
-      <button
-        type="button"
-        id="nav-toggle"
-        class="nav-toggle relative z-[70] flex h-10 w-10 items-center justify-center rounded-[2px] border border-ink/25 lg:hidden"
-        aria-label="Open menu"
-        aria-expanded="false"
-        aria-controls="mobile-menu"
-      >
-        <span class="nav-toggle__bar bg-ink"></span>
-        <span class="nav-toggle__bar bg-ink"></span>
-        <span class="nav-toggle__bar bg-ink"></span>
-      </button>
+      <div class="flex items-center gap-4">
+        <a href={site.phoneHref} class="hidden font-mono text-xs tracking-wide text-ink/80 hover:text-ink md:inline">
+          {site.phone}
+        </a>
+        <a href="/contact" class="btn-primary hidden text-sm sm:inline-flex">{site.ctaPrimary}</a>
+        <button
+          type="button"
+          id="nav-toggle"
+          class="nav-toggle relative z-[70] flex h-10 w-10 items-center justify-center rounded-[2px] border border-ink/25 lg:hidden"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+        >
+          <span class="nav-toggle__bar bg-ink"></span>
+          <span class="nav-toggle__bar bg-ink"></span>
+          <span class="nav-toggle__bar bg-ink"></span>
+        </button>
+      </div>
     </div>
   </div>
 </header>
