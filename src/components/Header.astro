@@ -8,8 +8,8 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
   id="site-header"
   class="sticky top-0 z-50 bg-logo-green text-ink transition-shadow [&.scrolled]:shadow-md"
 >
-  <div class="container-narrow flex items-center justify-between gap-4 px-5 md:px-8 lg:px-12">
-    <a href="/" class="block shrink-0 lg:-ml-3" aria-label={`${site.name} — Home`}>
+  <div class="container-narrow flex items-center justify-between gap-4 py-2 pl-5 pr-5 md:pl-6 md:pr-8 lg:pl-6 lg:pr-12">
+    <a href="/" class="block shrink-0 lg:-ml-2" aria-label={`${site.name} — Home`}>
       <img
         src="/logo.png"
         alt=""
@@ -21,14 +21,18 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     </a>
 
     <div class="flex items-center gap-6 lg:gap-9">
-      <nav class="hidden items-center gap-7 lg:flex" aria-label="Main navigation">
+      <nav class="hidden items-center gap-8 lg:flex" aria-label="Main navigation">
         {
           navLinks.map((link) => {
             const active = currentPath === link.href;
             return (
               <a
                 href={link.href}
-                class:list={['min-h-10 text-sm font-medium text-ink/85 transition-colors hover:text-ink', active && 'font-semibold text-ink']}
+                class:list={[
+                  'nav-link relative inline-flex h-11 items-center text-sm font-medium text-ink/85 transition-colors hover:text-ink',
+                  'after:absolute after:inset-x-0 after:bottom-[0.6rem] after:h-[2px] after:origin-left after:scale-x-0 after:bg-rust after:transition-transform after:duration-300 after:ease-out hover:after:scale-x-100 focus-visible:after:scale-x-100',
+                  active && 'font-semibold text-ink after:scale-x-100',
+                ]}
                 aria-current={active ? 'page' : undefined}
               >
                 {link.label}
@@ -39,7 +43,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
       </nav>
 
       <div class="flex items-center gap-4">
-        <a href={site.phoneHref} class="hidden font-mono text-xs tracking-wide text-ink/80 hover:text-ink md:inline">
+        <a href={site.phoneHref} class="hidden h-11 items-center font-mono text-xs tracking-wide text-ink/80 transition-colors hover:text-ink md:inline-flex">
           {site.phone}
         </a>
         <a href="/contact" class="btn-primary hidden text-sm sm:inline-flex">{site.ctaPrimary}</a>
