@@ -1,7 +1,7 @@
 export const site = {
   name: 'East Coast Scaffolding Ltd',
   shortName: 'East Coast Scaffolding',
-  tagline: 'Erected right. Struck on time.',
+  tagline: 'Built right. Struck on time.',
   description:
     'Beccles scaffolding contractors for residential, commercial and heritage work across Norfolk and Suffolk. CISRS-trained, fully insured, over 60 years’ combined experience.',
   phone: '01502 716005',

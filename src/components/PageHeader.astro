@@ -9,13 +9,14 @@ interface Props {
 const { eyebrow, title, lede, constrain = false } = Astro.props;
 ---
 
-<section class="section-padding bg-rust text-white">
+<section class="section-padding border-b border-hairline bg-galvanised">
   <div class:list={['container-narrow', constrain && 'max-w-3xl']}>
-    <p class="eyebrow mb-3 text-white" data-reveal>{eyebrow}</p>
-    <h1 class="mb-4 font-display text-4xl font-extrabold text-white md:text-5xl" data-reveal>{title}</h1>
+    <p class="eyebrow mb-3" data-reveal>{eyebrow}</p>
+    <span class="mb-4 block h-px w-12 bg-rust" aria-hidden="true" data-reveal></span>
+    <h1 class="mb-4 font-display text-4xl font-extrabold text-ink md:text-5xl" data-reveal>{title}</h1>
     {
       lede && (
-        <p class="max-w-2xl text-lg text-white" data-reveal>
+        <p class="max-w-2xl text-lg text-muted" data-reveal>
           {lede}
         </p>
       )
